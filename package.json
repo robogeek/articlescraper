@@ -1,0 +1,19 @@
+{
+  "name": "scrape",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.0.0-rc.6",
+    "cheerio": "^0.20.0",
+    "fs-extra-promise": "^0.4.0",
+    "js-yaml": "^3.6.1",
+    "phantom": "^2.1.9",
+    "request": "^2.72.0"
+  }
+}
