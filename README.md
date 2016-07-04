@@ -121,4 +121,34 @@ $ node fetcharts
 
 The `article.yaml` files are of course encoded in YAML.  They contain fields named `title`, `timestamp`, `url`, `body`, and `images`.  The latter is an array of URL's for images found in the article.
 
-We don't have a script written to use this data.  My intention is to import them into a Wordpress blog, which of course will involve a PHP script.  
+## Generating Wordpress WXR files
+
+In `mkwxr.js` we have a script to generate a Wordpress WXR file from a directory structure as generated above.
+
+Unfortunately it's extremely unclear how to attach the downloaded images to the articles.  The library in question has an `addAttachment` function, but it wants to see a URL for the attached image.  Then when you run the import tool in Wordpress it offers to download attachments into the Wordpress media gallery.  But how do we rewrite the post content so it automatically refers to the downloaded stuff?  And one of the `addAttachment` parameters is the Post ID where this attachment is to be attached, but we don't know the Post ID because it hasn't been generated yet.
+
+In any case... edit `mkwxr.js` and edit these lines:
+
+```
+const authorname = ".... your user name";
+const categoryslug = "news";
+...
+globfs.operate([ 'path/to/articles/directory' ], [ '**/article.yaml' ],
+```
+
+As implied, change the path to the directory where you dumped your exported content.  If you have more than one directory, list them all.  This will find all the `article.yaml` files in that directory structure.  The rest of the script reads those files, then generates a file named `articles.wxr` from the results.
+
+In your Wordpress site, install the Wordpress Importer.  Then, in the dashboard navigate to Tools - Import - Wordpress.  Once on that page, select your `articles.wxr` files and click the Import button.  You'll get to a page where you can select the username for the imported articles, and whether to download/import image attachments.
+
+This gets to the problem named earlier.  The library used to generate the WXR file -- when declaring an attachment -- requires that we give the Post ID the attachment is for.  But at that point we do not know what the Post ID is.  Hence, we cannot attach images in this step even though the previous step downloaded the images.
+
+We can run the import, and as coded the script causes the posts to be created in the Draft state.
+
+You can then use the Wordpress dashboard to
+
+* Edit each draft posting
+* Fix up the image attachments
+* Fix up the category tags
+* Make sure the date on the post is correct.
+
+Meaning that while we can get the content into Wordpress in a fairly painless process, we'll still need to edit the posts to fix those things.

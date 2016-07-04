@@ -12,8 +12,10 @@
     "async": "^2.0.0-rc.6",
     "cheerio": "^0.20.0",
     "fs-extra-promise": "^0.4.0",
+    "globfs": "^0.1.2",
     "js-yaml": "^3.6.1",
     "phantom": "^2.1.9",
-    "request": "^2.72.0"
+    "request": "^2.72.0",
+    "wxr": "^0.1.2"
   }
 }
