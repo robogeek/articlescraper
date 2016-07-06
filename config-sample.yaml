@@ -1,0 +1,29 @@
+
+# Sample configuration file for article scraper.
+# This is set up for Examiner.com, on the three titles I wrote for.
+# See README.md for documentation
+
+host:
+    protocol: 'http'
+    hostname: 'www.examiner.com'
+    pathname: '/green-transportation-in-national/david-herron'
+    # pathname: '/green-living-in-national/david-herron'
+    # pathname: '/environment-in-national/david-herron'
+    numpages: 45
+
+archive:
+    topdir: 'grnt'
+    # topdir: grnliving
+    # topdir: environment
+
+indexselectors:
+    item: 'div.index-listing article'
+    itemtitle: '.media__body a'
+    timestamp: '.media__body time'
+    teaser: '.copy .field-item'
+
+articleselectors:
+    images: 'article section.article-content img'
+    title: 'article h1.page-title'
+    timestamp: 'article div.article-socialtime time'
+    body: 'article .article-content .field-type-text-with-summary .field-item'

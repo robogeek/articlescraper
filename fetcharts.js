@@ -65,15 +65,21 @@ function fetchArticle(reqpath) {
             var imgs = [];
             $(config.articleselectors.images).each(function(i, elem) {
                 imgs.push($(this).attr('src'));
-            })
+            });
+
+            var bodytxt = "";
+            $(config.articleselectors.body).each(function(i, elem) {
+                bodytxt += $(this).html();
+            });
 
             resolve({
                 url: requrl,
                 title: $(config.articleselectors.title).text(),
                 timestamp: $(config.articleselectors.timestamp).attr('datetime'),
-                body: $(config.articleselectors.body).html(),
+                body: bodytxt, // $(config.articleselectors.body).html(),
                 images: imgs
             });
+            
         });
     });
 }
